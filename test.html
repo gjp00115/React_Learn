@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./js/react.js"></script>
+    <script src="./js/react-dom.js"></script>
+    <script src="./js/browser.min.js"></script>
+	<script src="./js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div id="aaa"></div>
+	<script type="text/babel">
+	
+	var Hello =React.createClass({
+	   getInitialState:function(){
+	      console.log("init component");
+
+		  return {
+		    opacity:1.0,
+			fontSize:'44px'
+		  };
+	   },
+	   render: function(){
+			return <div style={this.state}>Hello {this.props.name}</div>
+	   },
+	   componentWillMount:function(){
+		   console.log("will mount");
+	   },
+	   componentDidMount:function(){
+		 console.log("did mount");
+		 var _self = this;
+		 window.setTimeout(function(){
+			_self.setState({
+			  opacity:0.5,
+			  fontSize:'88px'
+			});
+		 }, 1000);
+	   },
+	   componentWillReceiveProps:function(){
+		   console.log("receive props");
+	   }, 
+	   shouldComponentUpdate:function(){
+	    console.log("if(should update ?)");
+		return true;
+	   },
+	   componentWillUpdate:function(){
+		  console.log("will update");
+	   },
+	   componentDidUpdate:function(){
+		  console.log("did update");
+
+		  var _self = this;
+		  window.setTimeout(function(){
+			$("#aaa").empty();
+			Hello = null;
+		 }, 1000);
+	   },
+	   componentWillUnmount:function(){
+		  console.log("will un-mount");
+	   }
+	});
+
+    ReactDOM.render(	
+	<Hello name="World"/>,
+	document.getElementById('aaa'));
+</script>
+</body>
+</html>
